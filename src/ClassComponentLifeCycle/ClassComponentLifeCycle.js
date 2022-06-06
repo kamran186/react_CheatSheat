@@ -16,7 +16,7 @@ export default class ClassComponentLifeCycle extends Component {
 
     componentDidMount() {
         // Works after Constructor. When the component renders the first time
-        console.log('Component Did Mount')
+        console.log('Parent Component Did Mount is called')
     }
 
 
@@ -26,16 +26,28 @@ export default class ClassComponentLifeCycle extends Component {
             count: this.state.count + 1
         })
     }
+    // Costum function
+    decreament() {
+        this.setState({
+            count: this.state.count - 1
+        })
+    }
 
     render() {
         return (
             <>
                 <h1>ClassComponentLifeCycle</h1>
-                <Counter count={this.state.count} />
+                {this.state.count < 5 ?
+                    <Counter count={this.state.count} />
+                    : null
+                }
 
                 {/* To call 'this' in increament function, use arrow function or bind 'this' while calling the function */}
                 <button onClick={() => this.increament()}>Increament using arrow function</button>
                 <button onClick={this.increament.bind(this)}>Increament using bind</button>
+
+                
+                <button onClick={this.decreament.bind(this)}>decreament using bind</button>
 
                 {/* This will create error because 'this' is undefined there */}
                 <button onClick={this.increament}>Increament(Error)</button>
